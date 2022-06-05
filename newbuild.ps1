@@ -35,6 +35,10 @@ function  SetWallpaper {
 }
 
 function Misctweeks {
+	#turns on system restore for drive C and takes a snapshot.
+	Enable-ComputerRestore -Drive "C:\"
+	"System restore enabled"
+	Checkpoint-Computer -Description ""Fresh Install of Windows"" -RestorePointType "MODIFY_SETTINGS"
 	Manage-Bde -off c:
 	set-TimeZone -Name "Central Standard Time"
 
