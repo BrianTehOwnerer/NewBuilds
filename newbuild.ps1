@@ -83,7 +83,7 @@ function Activate {
 
 function runUpdates {
 	Install-Module PSWindowsUpdate -Force
-	Install-WindowsUpdate
+	Get-WindowsUpdate -WindowsUpdate -UpdateType Driver -IsInstalled
 	Install-WindowsUpdate -AcceptAll -IgnoreReboot 
 }
 
