@@ -1,9 +1,9 @@
 Function InstallDAandSU {
 	#$DesktopPath = [Environment]::GetFolderPath("Desktop")
 	$SecureUpdaterurl = "https://secureupdater.s3.us-east-2.amazonaws.com/downloads/SecureUpdater.msi"
-	$SUoutpath = "$PSScriptRoot\SecureUpdater.msi"
+	$SUoutpath = $Home + "\Desktop\SecureUpdater.msi"
 	$DriveAdvisorurl = "https://secureupdater.s3.us-east-2.amazonaws.com/downloads/driveadviser.msi"
-	$DAoutpath = "$PSScriptRoot\driveadvisor.msi"
+	$DAoutpath = $Home + "\driveadvisor.msi"
 
 	#checks for SU and Drive Advisor, if not found installs them from the folders.
 	if (Test-Path -Path "C:\Program Files (x86)\Secure Updater\Secure Updater.exe") {
@@ -37,8 +37,7 @@ function  SetWallpaper {
 function Misctweeks {
 	#turns on system restore for drive C and takes a snapshot.
 	Enable-ComputerRestore -Drive "C:\"
-	"System restore enabled"
-	Checkpoint-Computer -Description ""Fresh Install of Windows"" -RestorePointType "MODIFY_SETTINGS"
+	Checkpoint-Computer -Description "Fresh Install of Windows" -RestorePointType "MODIFY_SETTINGS"
 	#this disables bitlocker on the C drive, we had some HS laptops that re-enabled it even after a fresh install
 	#better safe than sorry, its only a 1 liner any how
 	Manage-Bde -off c:
@@ -60,7 +59,7 @@ function Misctweeks {
 	#Set all local account passwords to never expire
 	$userNames = Get-LocalUser
 	foreach ($accoutnname in $userNames.Name) {
-		Set-LocalUser $accoutnname -PasswordNeverExpires
+		Set-LocalUser $accoutnname -PasswordNeverExpires 1
 	}
 }
 
