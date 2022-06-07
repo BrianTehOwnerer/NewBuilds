@@ -1,5 +1,4 @@
 Function InstallDAandSU {
-	#$DesktopPath = [Environment]::GetFolderPath("Desktop")
 	$SecureUpdaterurl = "https://secureupdater.s3.us-east-2.amazonaws.com/downloads/SecureUpdater.msi"
 	$SUoutpath = $Home + "\Desktop\SecureUpdater.msi"
 	$DriveAdvisorurl = "https://secureupdater.s3.us-east-2.amazonaws.com/downloads/driveadviser.msi"
@@ -87,6 +86,7 @@ function runUpdates {
 }
 
 function InstallChocoPrograms {
+	Install-PackageProvider -Name NuGet -Force
 	Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 	choco install libreoffice-fresh -y
 	choco install adobereader '"/DesktopIcon"' -y
@@ -95,7 +95,7 @@ function InstallChocoPrograms {
 	choco install googlechrome -y
 	choco install vlc -y
 	choco install dogtail.dotnet3.5sp1 -y
-	choco install dotnetfx --version -y
+	choco install dotnetfx -y
 	choco install zoom -y
 }
 
@@ -107,7 +107,7 @@ function securitySettings {
 	}
 }
 
-securitySettings
+SecuritySettings
 InstallDAandSU
 Misctweeks
 Activate
