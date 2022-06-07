@@ -22,9 +22,7 @@ Function InstallDAandSU {
 		Start-Process $DAoutpath "/quiet"
 		Start-Process "C:\Program Files (x86)\Drive Adviser\Drive Adviser.exe"
 	}
-
 }
-
 
 function  SetWallpaper {
 	#sets the wallpaperlocation variable to your pictures folder and name
@@ -46,6 +44,24 @@ function Misctweeks {
 	Manage-Bde -off c:
 	#This sets the timezone to CST, if your in a diffrent timezone, find yours via get-timezone list
 	set-TimeZone -Name "Central Standard Time"
+	#this loop asks for the PC Name you would like it to set
+	#Conviently if the PC is already named in the correct way it skips this
+	#and yes, a while loop is awful for this, but i love while loops and you cant stop me
+	$PCName = $env:COMPUTERNAME
+	while ($PCName -notmatch '^SI-[0-9]{1,7}$') {
+		$PCName = Read-Host -Prompt 'Imput the PC Name Here. eg, SI-4938294'
+		if ($PCName -match '^SI-[0-9]{1,7}$') {
+			Rename-Computer -NewName $PCName
+		}
+		else {
+			Write-Host "Name must fit format of SI-130496"
+		}
+	}	
+	#Set all local account passwords to never expire
+	$userNames = Get-LocalUser
+	foreach ($accoutnname in $userNames.Name) {
+		Set-LocalUser $accoutnname -PasswordNeverExpires
+	}
 }
 
 function Activate {
@@ -64,6 +80,13 @@ function Activate {
 		}
 	}
 }
+
+function runUpdates {
+	Install-Module PSWindowsUpdate -Force
+	Install-WindowsUpdate
+	Install-WindowsUpdate -AcceptAll -IgnoreReboot 
+}
+
 function InstallChocoPrograms {
 	Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 	choco install libreoffice-fresh -y
@@ -85,8 +108,10 @@ function securitySettings {
 	}
 }
 
+securitySettings
 InstallDAandSU
 Misctweeks
 Activate
 SetWallpaper
 InstallChocoPrograms
+runUpdates
