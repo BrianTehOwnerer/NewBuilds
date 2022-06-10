@@ -107,10 +107,57 @@ function securitySettings {
 	}
 }
 
+# I want it known that while I am proud to have this work... I am very dissapointed in all of the browsers for making me do this in the first place...
+# for refrence https://docs.microsoft.com/en-us/previous-versions/office/developer/office-xp/aa202943(v=office.10)?redirectedfrom=MSDN
+# The correct way to do this is https://docs.microsoft.com/en-us/deployedge/microsoft-edge-policies
+# https://support.google.com/chrome/a/answer/3115278?hl=en
+# https://support.mozilla.org/en-US/kb/deploying-firefox-windows
+
+function setDefaultBrowserHomepages {
+	#Edge 
+	Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+	Start-Sleep 1
+	$wshell = New-Object -ComObject wscript.shell;
+	$wshell.AppActivate('edge')
+	Start-Sleep 1
+	$wshell.SendKeys('edge://settings/startHomeNTP ~ ')
+	Start-Sleep 1
+	$wshell.SendKeys('{TAB} {TAB} {TAB} {TAB} ~')
+	Start-Sleep 1
+	$wshell.SendKeys('www.schrockinnovations.com ~')
+
+
+	#Firefox
+	Start-Process "C:\Program Files\Mozilla Firefox\firefox.exe"
+	Start-Sleep 1
+	$wshell = New-Object -ComObject wscript.shell;
+	$wshell.AppActivate('Fire Fox')
+	Start-Sleep 1
+	$wshell.SendKeys('about:preferences#home ~')
+	Start-Sleep 1
+	$wshell.SendKeys('{TAB} {down} {TAB} www.schrockinnovations.com ~')
+	Start-Sleep 1
+
+	#chrome
+	Start-Process "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	Start-Sleep 1
+	$wshell = New-Object -ComObject wscript.shell;
+	$wshell.AppActivate('chrome')
+	Start-Sleep 1
+	$wshell.SendKeys('chrome://settings/onStartup ~')
+	Start-Sleep 1
+	$wshell.SendKeys('{TAB} {TAB} {down}{down}{TAB} ~')
+	Start-Sleep 1
+	$wshell.SendKeys('www.schrockinnovations.com ~')
+	Start-Sleep 1
+	$wshell.SendKeys('~')
+}
+
 SecuritySettings
 InstallDAandSU
 Misctweeks
 Activate
 SetWallpaper
 InstallChocoPrograms
+setDefaultBrowserHomepages
 runUpdates
