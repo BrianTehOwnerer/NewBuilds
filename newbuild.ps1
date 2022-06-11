@@ -114,9 +114,14 @@ function securitySettings {
 # https://support.mozilla.org/en-US/kb/deploying-firefox-windows
 
 function setDefaultBrowserHomepages {
+
+	taskkill.exe /IM chrome.exe /F
+	taskkill.exe /IM firefox.exe /F
+	taskkill.exe /IM edge.exe /F
+	
 	#Edge 
 	Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell = New-Object -ComObject wscript.shell;
 	$wshell.AppActivate('edge')
 	Start-Sleep 1
@@ -126,10 +131,12 @@ function setDefaultBrowserHomepages {
 	Start-Sleep 1
 	$wshell.SendKeys('www.schrockinnovations.com ~')
 
+	Write-Host -NoNewLine 'Press any key to continue...';
+	$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 	#Firefox
 	Start-Process "C:\Program Files\Mozilla Firefox\firefox.exe"
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell = New-Object -ComObject wscript.shell;
 	$wshell.AppActivate('Fire Fox')
 	Start-Sleep 1
@@ -137,20 +144,24 @@ function setDefaultBrowserHomepages {
 	Start-Sleep 1
 	$wshell.SendKeys('{TAB} {down} {TAB} www.schrockinnovations.com ~')
 	Start-Sleep 1
+	Write-Host -NoNewLine 'Press any key to continue...';
+	$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 	#chrome
 	Start-Process "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell = New-Object -ComObject wscript.shell;
 	$wshell.AppActivate('chrome')
 	Start-Sleep 1
 	$wshell.SendKeys('chrome://settings/onStartup ~')
 	Start-Sleep 1
-	$wshell.SendKeys('{TAB} {TAB} {down}{down}{TAB} ~')
+	$wshell.SendKeys('{TAB} {TAB} {down} {down}{TAB} ~')
 	Start-Sleep 1
 	$wshell.SendKeys('www.schrockinnovations.com ~')
 	Start-Sleep 1
 	$wshell.SendKeys('~')
+	Write-Host -NoNewLine 'Press any key to continue...';
+	$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 }
 
 SecuritySettings
