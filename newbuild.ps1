@@ -112,21 +112,27 @@ function securitySettings {
 # The correct way to do this is https://docs.microsoft.com/en-us/deployedge/microsoft-edge-policies
 # https://support.google.com/chrome/a/answer/3115278?hl=en
 # https://support.mozilla.org/en-US/kb/deploying-firefox-windows
-
 function setDefaultBrowserHomepages {
-
+	Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe"
+	Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+	Start-Process "C:\Program Files\Mozilla Firefox\firefox.exe"
+	Start-Sleep 10
 	taskkill.exe /IM chrome.exe /F
 	taskkill.exe /IM firefox.exe /F
 	taskkill.exe /IM edge.exe /F
-	
+	Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe"
+	Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
+	Start-Process "C:\Program Files\Mozilla Firefox\firefox.exe"
+	Start-Sleep 10
+
 	#Edge 
 	Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
 	Start-Sleep 5
 	$wshell = New-Object -ComObject wscript.shell;
 	$wshell.AppActivate('edge')
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell.SendKeys('edge://settings/startHomeNTP ~ ')
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell.SendKeys('{TAB} {TAB} {TAB} {TAB} ~')
 	Start-Sleep 1
 	$wshell.SendKeys('www.schrockinnovations.com ~')
@@ -139,22 +145,22 @@ function setDefaultBrowserHomepages {
 	Start-Sleep 5
 	$wshell = New-Object -ComObject wscript.shell;
 	$wshell.AppActivate('Fire Fox')
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell.SendKeys('about:preferences#home ~')
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell.SendKeys('{TAB} {down} {TAB} www.schrockinnovations.com ~')
 	Start-Sleep 1
 	Write-Host -NoNewLine 'Press any key to continue...';
 	$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 	#chrome
-	Start-Process "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe"
 	Start-Sleep 5
 	$wshell = New-Object -ComObject wscript.shell;
 	$wshell.AppActivate('chrome')
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell.SendKeys('chrome://settings/onStartup ~')
-	Start-Sleep 1
+	Start-Sleep 5
 	$wshell.SendKeys('{TAB} {TAB} {down} {down}{TAB} ~')
 	Start-Sleep 1
 	$wshell.SendKeys('www.schrockinnovations.com ~')
