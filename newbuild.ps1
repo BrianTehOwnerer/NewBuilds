@@ -176,5 +176,4 @@ Misctweeks
 Activate
 SetWallpaper
 InstallChocoPrograms
-setDefaultBrowserHomepages
 runUpdates
