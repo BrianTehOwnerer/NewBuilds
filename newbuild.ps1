@@ -112,6 +112,7 @@ function securitySettings {
 # The correct way to do this is https://docs.microsoft.com/en-us/deployedge/microsoft-edge-policies
 # https://support.google.com/chrome/a/answer/3115278?hl=en
 # https://support.mozilla.org/en-US/kb/deploying-firefox-windows
+<#
 function setDefaultBrowserHomepages {
 	Start-Process "C:\Program Files\Google\Chrome\Application\chrome.exe"
 	Start-Process "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
@@ -169,6 +170,7 @@ function setDefaultBrowserHomepages {
 	Write-Host -NoNewLine 'Press any key to continue...';
 	$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 }
+#>
 
 SecuritySettings
 InstallDAandSU
